@@ -11,7 +11,7 @@ namespace Webstore
 {
     public class DB
     {
-        private byte[] generateHash(string password)
+        public byte[] generateHash(string password)
         {
             var algorithm = SHA256.Create();
             byte[] hashPassword = algorithm.ComputeHash(Encoding.ASCII.GetBytes(password));

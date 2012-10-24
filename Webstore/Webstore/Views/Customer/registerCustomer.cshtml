@@ -13,7 +13,63 @@
 </head>
 <body>
     <div>
-        
+        @using(Html.BeginForm()){
+          @Html.ValidationSummary(true)
+           <fieldset>
+               <legend>Customer</legend>
+               <div>
+                    @Html.LabelFor(model => model.firstname, "First name")
+               </div>
+               <div>
+                   @Html.EditorFor(model => model.firstname)
+           
+               </div>
+               <div>
+                    @Html.LabelFor(model => model.lastname, "Last name")
+               </div>
+               <div>
+                   @Html.EditorFor(model => model.lastname)
+           
+               </div>
+               <div>
+                    @Html.LabelFor(model => model.address, "Address")
+               </div>
+               <div>
+                   @Html.EditorFor(model => model.address)
+           
+               </div>
+               <div>
+                    @Html.LabelFor(model => model.zipcode, "Zip code")
+               </div>
+               <div>
+                   @Html.EditorFor(model => model.zipcode)
+           
+               </div>
+               <div>
+                    @Html.LabelFor(model => model.telephone, "Telephone number")
+               </div>
+               <div>
+                   @Html.EditorFor(model => model.telephone)
+           
+               </div>
+               <div>
+                    @Html.LabelFor(model => model.email, "Email")
+               </div>
+               <div>
+                   @Html.EditorFor(model => model.email)
+           
+               </div>
+                   <label for="password">Password</label>
+
+                <div>            
+                   @Html.Password("Password")
+           
+               </div>
+               <input type="submit" value="Register" />
+        </fieldset>
+        }
     </div>
+       @ViewBag.registrationConfirmation
+   
 </body>
 </html>
