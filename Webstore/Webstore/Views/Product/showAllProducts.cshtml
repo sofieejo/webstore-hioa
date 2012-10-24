@@ -1,0 +1,10 @@
+﻿@model List<Webstore.Models.product>
+
+<p>Dette er produkter</p>
+
+@foreach(var product in Model)
+{
+    
+         <p>@product.name</p>
+         <p>@product.price</p>
+}     
