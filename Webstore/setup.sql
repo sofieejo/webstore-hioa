@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[customer] (
     [zipcode]   VARCHAR (4)   NOT NULL,
     [email]     VARCHAR (100) NOT NULL,
     [telephone] VARCHAR (8)   NOT NULL,
-    [password]  VARCHAR (256) NOT NULL,
+    [password]  VARBINARY (256) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_customer_city] FOREIGN KEY ([zipcode]) REFERENCES [dbo].[city] ([zipcode])
 );

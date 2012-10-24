@@ -14,20 +14,6 @@
       <Association Name="city_customer" Member="customers" ThisKey="zipcode" OtherKey="zipcode" Type="customer" />
     </Type>
   </Table>
-  <Table Name="dbo.customer" Member="customers">
-    <Type Name="customer">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="address" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="zipcode" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
-      <Column Name="email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="telephone" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
-      <Column Name="password" Type="System.String" DbType="VarChar(256) NOT NULL" CanBeNull="false" />
-      <Association Name="customer_order" Member="orders" ThisKey="Id" OtherKey="customerID" Type="order" />
-      <Association Name="city_customer" Member="city" ThisKey="zipcode" OtherKey="zipcode" Type="city" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.[order]" Member="orders">
     <Type Name="order">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -56,6 +42,20 @@
       <Column Name="categoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="product_orderdetail" Member="orderdetails" ThisKey="Id" OtherKey="productID" Type="orderdetail" />
       <Association Name="category_product" Member="category" ThisKey="categoryID" OtherKey="Id" Type="category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.customer" Member="customers">
+    <Type Name="customer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="zipcode" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="telephone" Type="System.String" DbType="VarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.Data.Linq.Binary" DbType="VarBinary(256) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="customer_order" Member="orders" ThisKey="Id" OtherKey="customerID" Type="order" />
+      <Association Name="city_customer" Member="city" ThisKey="zipcode" OtherKey="zipcode" Type="city" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
