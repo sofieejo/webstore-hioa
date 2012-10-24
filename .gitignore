@@ -1,2 +1,3 @@
-/Webstore/Webstore/App_Data/*
-/Webstore/Webstore/Models/*.dbml
+Webstore/Webstore/App_Data/*
+Webstore/Webstore/Models/*.dbml
+Webstore/Webstore/Models/*.dbml.*
