@@ -3,3 +3,8 @@
 /Webstore/Webstore/Models/*.dbml.*
 /Webstore/Webstore.v11.suo
 /Webstore/Webstore.v11
+bin/
+obj/
+*.suo
+*.user
+Debug/

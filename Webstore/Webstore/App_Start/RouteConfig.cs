@@ -23,7 +23,7 @@ namespace Webstore
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Product", action = "showAllProducts", id = UrlParameter.Optional }
+                defaults: new { controller = "Customer", action = "registerCustomer", id = UrlParameter.Optional }
             );
         }
     }

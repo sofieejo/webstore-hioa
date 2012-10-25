@@ -10,8 +10,7 @@ namespace Webstore.Controllers
 {
     public class CustomerController : Controller
     {
-        //
-        // GET: /Customer/
+        private DB db = new DB();
 
         public ActionResult registerCustomer()
         {
@@ -22,7 +21,6 @@ namespace Webstore.Controllers
         public ActionResult registerCustomer(Models.customer customer)
         {
             if (ModelState.IsValid) {
-                var db = new DB();
                 var newCustomer = new Models.customer();
                 newCustomer.firstname = customer.firstname;
                 newCustomer.lastname = customer.lastname;
@@ -36,11 +34,31 @@ namespace Webstore.Controllers
                
             }
             return View();
-           
-            
-            
         }
 
+        public ActionResult logIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult logIn(FormCollection form)
+        {
+            var email = form["email"];
+            var password = form["password"];
+
+            if (db.doLogIn(email, password))
+            {
+                Session["currentUser"] = true;
+                ViewBag.logInMessage = "You are now logged inn,";
+            }
+            else
+            {
+                ViewBag.logInMessage = "Fail";
+            }
+
+            return View();
+        }
 
     }
 }
