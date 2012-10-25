@@ -1,3 +1,5 @@
-Webstore/Webstore/App_Data/*
-Webstore/Webstore/Models/*.dbml
-Webstore/Webstore/Models/*.dbml.*
+/Webstore/Webstore/App_Data/*
+/Webstore/Webstore/Models/*.dbml
+/Webstore/Webstore/Models/*.dbml.*
+/Webstore/Webstore.v11.suo
+/Webstore/Webstore.v11
