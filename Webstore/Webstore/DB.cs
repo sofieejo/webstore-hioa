@@ -24,6 +24,14 @@ namespace Webstore
             {
                 using (var db = new DataClassesDataContext())
                 {
+                    var zip = from z in db.cities
+                              where z.zipcode == customer.zipcode
+                              select z;
+
+                    if (zip.Count() == 0)
+                    {
+                        return "This is not a norwegian zipcode";
+                    }
                     db.customers.InsertOnSubmit(customer);
                     db.SubmitChanges();
                     return "You've been registered! You will now be redirected back to the store";

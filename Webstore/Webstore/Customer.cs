@@ -42,7 +42,7 @@ namespace Webstore
             [Required(ErrorMessage = "Type your password")]
             [StringLength(50, ErrorMessage = "Max 50 characters in firstname")]
             [DataType(DataType.Password)]
-            public string password { get; set; }
+            public byte[] password { get; set; }
 
             
         }
