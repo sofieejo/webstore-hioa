@@ -43,5 +43,19 @@ namespace Webstore
             }
         }
 
+        public bool doLogIn(string email, string password)
+        {
+            var hashedPassword = generateHash(password);
+
+            using (var db = new DataClassesDataContext())
+            {
+                var user = from c in db.customers
+                            where email == c.email && hashedPassword == c.password
+                            select c;
+
+                return user.Count() != 1;
+            }
+        }
+
     }
 }
