@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using Webstore.Models;
+using System.Data.Linq;
 
 namespace Webstore.Controllers
 {
@@ -47,18 +49,57 @@ namespace Webstore.Controllers
             var email = form["email"];
             var password = form["password"];
 
-            if (db.doLogIn(email, password))
+            Session["loggedIn"] = db.LogIn(email, password);
+
+            Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
+            if ( userInformation != null)
             {
-                Session["currentUser"] = true;
-                ViewBag.logInMessage = "You are now logged inn,";
+                ViewBag.logInMessage = "You are now logged in ";
+                foreach (var property in userInformation.First().Value)
+                {
+                    ViewBag.logInMessage += property + " .";
+                }
             }
             else
             {
-                ViewBag.logInMessage = "Fail";
+                ViewBag.logInMessage = "You are not logged in.";
             }
-
             return View();
         }
 
+        public ActionResult orders()
+        {
+            Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
+            ViewBag.text = "";
+            
+            if (userInformation != null)
+            {
+                try
+                {
+                    Dictionary<int, Dictionary<string,string>> orders = db.getCustomerOrderDetails(userInformation.First().Key);
+
+                    foreach (var item in orders)
+                    {
+                        ViewBag.text += "orderdetailId >> " + item.Key;
+                        foreach (var detail in item.Value)
+                        {
+                            ViewBag.text += detail.Key + " --- " + detail.Value;
+                        }
+                    }
+                }
+                catch (ObjectDisposedException o)
+                {
+                    Console.Write(o.Message);
+                }
+            }
+            else
+            {
+                ViewBag.errorMessage = "You must log in to view orders.";
+            }
+
+            return View();
+
+
+        }
     }
 }
