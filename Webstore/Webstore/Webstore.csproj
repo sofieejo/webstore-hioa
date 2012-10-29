@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\OrderlineResults.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
@@ -220,6 +221,7 @@
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Customer\registerCustomer.cshtml" />
     <Content Include="Views\Shared\logIn.cshtml" />
+    <Content Include="Views\Customer\orders.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
