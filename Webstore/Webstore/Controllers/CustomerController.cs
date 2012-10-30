@@ -56,13 +56,16 @@ namespace Webstore.Controllers
             if ( userInformation != null)
             {
                 ViewBag.logInMessage = "You are now logged in " + userInformation.First().Value + ".";
-                ViewBag.linkToStore = n
+                
+                System.Threading.Thread.Sleep(2000);
+                return RedirectToAction("showallproducts", "product",null);
             }
             else
             {
                 ViewBag.logInMessage = "You are not logged in.";
+                return View();
             }
-            return View();
+            
         }
 
         public ActionResult orders()
