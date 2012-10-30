@@ -12,11 +12,10 @@ namespace Webstore
 {
     public class DB
     {
-        public Binary generateHash(string password)
+        public byte[] generateHash(string password)
         {
             var algorithm = SHA256.Create();
-            Binary hashPassword = algorithm.ComputeHash(Encoding.ASCII.GetBytes(password));
-            return hashPassword;
+            return algorithm.ComputeHash(Encoding.ASCII.GetBytes(password));
         }
 
         public string insertCustomer(Webstore.Models.customer customer)
@@ -46,7 +45,7 @@ namespace Webstore
 
         public Dictionary<int, List<string>> LogIn(string email, string password)
         {
-            Binary hashedPassword = generateHash(password);
+            byte[] hashedPassword = generateHash(password);
 
             using (var db = new DataClassesDataContext())
             {
@@ -60,13 +59,13 @@ namespace Webstore
                 {
                     Dictionary<int, List<string>> customer = new Dictionary<int, List<string>>();
                     List<string> properties = new List<string>();
+
                     properties.Add(user.First().firstname);
                     properties.Add(user.First().lastname);
                     properties.Add(user.First().email);
                     customer.Add(user.First().Id, properties);
 
                     return customer;
-                    
                 }
                 else
                 {

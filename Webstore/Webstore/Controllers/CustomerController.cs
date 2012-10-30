@@ -38,6 +38,7 @@ namespace Webstore.Controllers
             return View();
         }
 
+        
         public ActionResult logIn()
         {
             return View();
@@ -54,11 +55,8 @@ namespace Webstore.Controllers
             Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
             if ( userInformation != null)
             {
-                ViewBag.logInMessage = "You are now logged in ";
-                foreach (var property in userInformation.First().Value)
-                {
-                    ViewBag.logInMessage += property + " .";
-                }
+                ViewBag.logInMessage = "You are now logged in " + userInformation.First().Value + ".";
+                ViewBag.linkToStore = n
             }
             else
             {
