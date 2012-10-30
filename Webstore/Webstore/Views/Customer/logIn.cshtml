@@ -1,26 +1,35 @@
 ﻿@model Webstore.Models.customer
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_loginlayout.cshtml";
 }
 
-@using(Html.BeginForm()){
+<div id="log-in-box">
+    @using(Html.BeginForm()){
     @Html.ValidationSummary(true)
     <fieldset>
-
-        @Html.LabelFor(model => model.email, "E-mail")
+        <div>
+            @Html.LabelFor(model => model.email, "E-mail")
+        </div>
 
         @Html.EditorFor(model => model.email)
            
-        <label for="password">Password</label>
+        <div>
+            <label for="password">Password</label>
+        </div>
           
         @Html.Password("Password")
 
-        <input type="submit" value="Log In" />
+        <div>
+            <input type="submit" value="Log In" />
+        </div>
+    
     </fieldset>
-<h1>@ViewBag.logInMessage</h1>
+@Html.ActionLink("Become a registered customer", "../customer/registerCustomer")
+        
+<h3>@ViewBag.logInMessage</h3>
 }
 
-<div id="link-to-store">
-    <a href=" @ViewData["linkToStore"]  ">Go to the store!</a>
 </div>
+
+@Html.ActionLink("Go to store without logging in.", "../product/showallproducts")

@@ -1,12 +1,9 @@
 ﻿body {
-    font-size: .85em;
+    font-size: 1em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    color: #232323;
     background-color: #fff;
-}
-
-header, footer, nav, section {
-    display: block;
+    width: 80%;
+    margin: 0 auto;
 }
 
 
@@ -64,6 +61,43 @@ textarea {
 /* Custom styles
 -----------------------------------------------------------*/
 
+header h1 {
+    display: inline;
+
+}
+
+#welcome-message{
+    display: inline;
+    float: right;
+    font-family: 'Times New Roman';
+    font-style: italic;
+    color: #808080;
+    font-size: 1.5em;
+}
+
+#logout {
+    font-size: 0.7em;
+}
+
 #link-to-store {
-    display: none;
+    font-size: medium;
+}
+
+#main-container {
+    display: inline;
+    width: 70%;
+    float: left;
+}
+
+    #main-container td {
+        padding-right: 3em;
+        border-bottom: 1px solid #c6c6c6;
+    }
+
+#shopping-cart {
+    display: inline;
+    width: 15em;
+    min-height: 10em;
+    float: right;
+    border: 1px solid #4cff00;
 }
