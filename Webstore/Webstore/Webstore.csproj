@@ -127,9 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\OrderlineResults.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,6 +204,7 @@
     <Content Include="Scripts\knockout-2.0.0.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Content\StyleSheet1.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -214,14 +213,14 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Product\showAllProducts.cshtml" />
-    <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Customer\registerCustomer.cshtml" />
-    <Content Include="Views\Shared\logIn.cshtml" />
+    <Content Include="Views\Customer\logIn.cshtml" />
     <Content Include="Views\Customer\orders.cshtml" />
+    <Content Include="Views\Product\home.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

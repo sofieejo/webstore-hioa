@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Mvc.Html
+@using System.Web.Mvc.Razor
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,7 +11,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <h1>this is shared</h1>
+    <header>
+        <h1>The Cable Store</h1>
+        
+    </header>
+    
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)

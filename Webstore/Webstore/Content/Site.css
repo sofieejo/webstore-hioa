@@ -13,7 +13,7 @@ header, footer, nav, section {
 /* Styles for basic forms
 -----------------------------------------------------------*/
 fieldset {
-    border: 1px solid #ddd;
+    border: 1px solid white;
     padding: 0 1.4em 1.4em 1.4em;
     margin: 0 0 1.5em 0;
 }
@@ -57,5 +57,13 @@ textarea {
 }
 
 .validation-summary-valid {
+    display: none;
+}
+
+
+/* Custom styles
+-----------------------------------------------------------*/
+
+#link-to-store {
     display: none;
 }
