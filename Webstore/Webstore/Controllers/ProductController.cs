@@ -11,14 +11,16 @@ namespace Webstore.Controllers
         //
         // GET: /Product/
 
-        public ActionResult showAllProducts()
+        public PartialViewResult showAllProducts()
         {
             var db = new Models.DataClassesDataContext();
             List<Models.product> productList = db.products.ToList();
             ViewData.Model = productList;
 
-            return View();
+            return PartialView("showAllProducts");
         }
+
+
 
     }
 }
