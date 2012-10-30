@@ -122,7 +122,7 @@ namespace Webstore
                         priceTotal = product.First().price * property.quantity;
                         details.Add("productName", product.First().name);
                         details.Add("priceTotal", Convert.ToString(priceTotal));
-                        details.Add("date", Convert.ToString(date.First()));
+                        details.Add("date", Convert.ToString(date.First().date));
 
                         orderDetailList.Add(property.Id, details);
                     }
