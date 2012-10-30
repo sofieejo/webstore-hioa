@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text;
 
 namespace Webstore.Controllers
 {
@@ -11,16 +12,41 @@ namespace Webstore.Controllers
         //
         // GET: /Product/
 
+        DB db = new DB();
+
         public PartialViewResult showAllProducts()
         {
-            var db = new Models.DataClassesDataContext();
-            List<Models.product> productList = db.products.ToList();
-            ViewData.Model = productList;
+            ViewData.Model = db.getAllProducts();
 
-            return PartialView("showAllProducts");
+            if (Session["loggedIn"] != null)
+            {
+                Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
+                ViewBag.username = userInformation.First().Value.First();
+            }
+            return PartialView();
         }
 
+        public JsonResult categoryList()
+        {
+            JsonResult categories = new JsonResult();
+            categories.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            foreach (var c in db.getAllCategories())
+            {
+                categories.Data += c.Key + ": " + c.Value + ",";
+            }
+            return categories;
+        }
 
+        public JsonResult get(int id)
+        {
+            JsonResult product = new JsonResult();
+            product.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
+            foreach(var p in db.getProduct(id)){
+                product.Data += p.Key + ": " + p.Value + ",";
+            }
+            return product;
+        }
+      
     }
 }

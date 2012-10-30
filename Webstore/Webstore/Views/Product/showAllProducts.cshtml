@@ -2,13 +2,37 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "The store";
 }
 
 <h2>Our products</h2>
+<div>
+    Categories(not yet implemented):
+    <select id="categorylist"></select>
+</div>
+
+<table>
+    <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Price</th>
+    </tr>
 
 @foreach(var product in Model)
 {
-    
-         <p>@product.name</p>
-         <p>@product.price</p>
-}     
+    <tr>
+        <td>IMAGE should go here</td>
+        <td>
+            <span class="product-name">@product.name</span><br />
+            <span class="product-description">@product.description</span>
+        </td>
+        <td>
+            kr @product.price ,-
+        </td>
+        <td>
+            <button class="buy-button" data-product-id="@product.Id">Add to cart</button>
+        </td>
+    </tr>
+}
+      
+</table>
