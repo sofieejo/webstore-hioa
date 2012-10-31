@@ -62,6 +62,7 @@ namespace Webstore
                 ViewBag.logInMessage = "You are now logged in " + userInformation.First().Value + ".";
                 System.Threading.Thread.Sleep(2000);
                 return RedirectToAction("showallproducts", "product",null);
+
             }
             else
             {
