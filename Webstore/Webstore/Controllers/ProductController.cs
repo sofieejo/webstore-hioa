@@ -22,6 +22,13 @@ namespace Webstore.Controllers
             {
                 Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
                 ViewBag.username = userInformation.First().Value.First();
+                ViewBag.logLink = "<a href='../customer/logOut'>(log out?)</a>";
+                ViewBag.optionLink = "<a href='../customer/orders' class='option-link'>Show my orders</a>";
+            }
+            else
+            {
+                ViewBag.logLink = "<a href='../customer/logIn'>(log in?)</a>";
+                ViewBag.optionLink = "<a href='../customer/registerCustomer' class='option-link'>Become a customer</a>";
             }
             return PartialView();
         }

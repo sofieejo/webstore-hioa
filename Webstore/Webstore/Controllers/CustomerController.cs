@@ -112,5 +112,13 @@ namespace Webstore
         {
             return psw != null && psw.Length < 50;
         }
+
+        public ActionResult logOut()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("showallproducts", "product", null);
+        }
+
     }
 }
