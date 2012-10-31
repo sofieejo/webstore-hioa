@@ -7,8 +7,9 @@ using System.Security.Cryptography;
 using System.Text;
 using Webstore.Models;
 using System.Data.Linq;
+using System.Threading;
 
-namespace Webstore.Controllers
+namespace Webstore
 {
     public class CustomerController : Controller
     {
@@ -20,25 +21,28 @@ namespace Webstore.Controllers
         }
 
         [HttpPost]
-        public ActionResult registerCustomer(Models.customer customer)
+        public ActionResult registerCustomer(Models.customer customer, FormCollection collection)
         {
-            if (ModelState.IsValid) {
-                var newCustomer = new Models.customer();
-                newCustomer.firstname = customer.firstname;
-                newCustomer.lastname = customer.lastname;
-                newCustomer.address = customer.address;
-                newCustomer.zipcode = customer.zipcode;
-                newCustomer.telephone = customer.telephone;
-                newCustomer.email = customer.email;
-                newCustomer.password = db.generateHash(customer.password.ToString());
-
-                ViewBag.registrationConfirmation = db.insertCustomer(newCustomer);
-               
+            if(ModelState.IsValid){
+                string pass = collection["pass"];
+                        
+                if (passwordOK(pass))
+                {
+                    customer.password = db.generateHash(pass);
+                    ViewBag.registrationConfirmation = db.insertCustomer(customer);
+                    Thread.Sleep(1000);
+                    return RedirectToAction("logIn");
+                }
+                else
+                {
+                    ViewBag.registrationConfirmation = "You are not registered.";
+                    return View();
+                }
             }
-            return View();
+            else { return View(); }
+                            
         }
 
-        
         public ActionResult logIn()
         {
             return View();
@@ -56,9 +60,9 @@ namespace Webstore.Controllers
             if ( userInformation != null)
             {
                 ViewBag.logInMessage = "You are now logged in " + userInformation.First().Value + ".";
-                
                 System.Threading.Thread.Sleep(2000);
                 return RedirectToAction("showallproducts", "product",null);
+
             }
             else
             {
@@ -101,6 +105,11 @@ namespace Webstore.Controllers
             return View();
 
 
+        }
+
+        private bool passwordOK(string psw)
+        {
+            return psw != null && psw.Length < 50;
         }
     }
 }
