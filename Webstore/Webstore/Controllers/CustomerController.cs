@@ -49,12 +49,13 @@ namespace Webstore
         }
 
         [HttpPost]
-        public ActionResult logIn(FormCollection form)
+        public ActionResult logIn(FormCollection form, Models.customer customer)
         {
-            var email = form["email"];
-            var password = form["password"];
+            
+            string password = form["pass"];
+            
 
-            Session["loggedIn"] = db.LogIn(email, password);
+            Session["loggedIn"] = db.LogIn(customer.email, password);
 
             Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
             if ( userInformation != null)

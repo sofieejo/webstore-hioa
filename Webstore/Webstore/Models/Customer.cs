@@ -25,7 +25,7 @@ namespace Webstore.Models
 
             [Required(ErrorMessage = "Type your address")]
             [StringLength(100, ErrorMessage = "Max 100 characters in your address")]
-            [RegularExpression(@"[A-Za-z0-9 \-]+", ErrorMessage = "Please do not use any spesial characters in your address, only letters and numbers")]
+            [RegularExpression(@"[A-Za-z0-9 \-]+", ErrorMessage = "Use only letters and numbers")]
             public string address { get; set; }
 
             [Required(ErrorMessage = "Type your zipcode")]
@@ -35,15 +35,15 @@ namespace Webstore.Models
 
             //TODO regex validation
             [Required(ErrorMessage = "Type your email")]
-            [StringLength(100, ErrorMessage = "Max 100 characters in your email address")]
+            [StringLength(100, ErrorMessage = "Cannot be longer than 100 characters")]
             [RegularExpression(@"^([\w\.\-]+)@([\w\-\.]+)\.([\w]{2,3})$", 
-              ErrorMessage= "Make sure you have typed the correct form on your email address. Example: abc@def.com")]
+              ErrorMessage= "Invalid email address. Example: abc@def.com")]
             [DataType(DataType.EmailAddress)]
             public string email { get; set; }
 
             [Required(ErrorMessage = "Type your telephonenumber")]
             [StringLength(8, ErrorMessage = "Max 8 digits in telephonenumber")]
-            [RegularExpression(@"^[\d]{8}$", ErrorMessage = "Your telephonenumber must contain 8 digits")]
+            [RegularExpression(@"^[\d]{8}$", ErrorMessage = "Your number must contain 8 digits")]
             public string telephone { get; set; }
         }
     }
