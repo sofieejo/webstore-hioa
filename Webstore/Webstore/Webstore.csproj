@@ -222,7 +222,6 @@
     <Content Include="Views\Customer\registerCustomer.cshtml" />
     <Content Include="Views\Customer\logIn.cshtml" />
     <Content Include="Views\Customer\orders.cshtml" />
-    <Content Include="Views\Product\home.cshtml" />
     <Content Include="Views\Shared\_loginlayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
