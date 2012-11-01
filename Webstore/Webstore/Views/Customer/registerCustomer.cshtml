@@ -1,7 +1,7 @@
 ﻿@model Webstore.Models.customer
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -13,57 +13,61 @@
 </head>
 <body>
     <div>
-        @using(Html.BeginForm()){
+        @using(Html.BeginForm("registerCustomer", "customer")){
           @Html.ValidationSummary(true)
            <fieldset>
                <legend>Customer</legend>
                <div>
                     @Html.LabelFor(model => model.firstname, "First name")
+                    
                </div>
                <div>
                    @Html.EditorFor(model => model.firstname)
-           
+                   @Html.ValidationMessageFor(model => model.firstname)
                </div>
                <div>
                     @Html.LabelFor(model => model.lastname, "Last name")
                </div>
                <div>
                    @Html.EditorFor(model => model.lastname)
-           
+                   @Html.ValidationMessageFor(model => model.lastname)
                </div>
                <div>
                     @Html.LabelFor(model => model.address, "Address")
                </div>
                <div>
                    @Html.EditorFor(model => model.address)
-           
+                   @Html.ValidationMessageFor(model => model.address)
                </div>
                <div>
                     @Html.LabelFor(model => model.zipcode, "Zip code")
                </div>
                <div>
                    @Html.EditorFor(model => model.zipcode)
-           
+                   @Html.ValidationMessageFor(model => model.zipcode)
                </div>
                <div>
                     @Html.LabelFor(model => model.telephone, "Telephone number")
                </div>
                <div>
                    @Html.EditorFor(model => model.telephone)
-           
+                   @Html.ValidationMessageFor(model => model.telephone)
                </div>
                <div>
                     @Html.LabelFor(model => model.email, "Email")
                </div>
                <div>
                    @Html.EditorFor(model => model.email)
-           
+                   @Html.ValidationMessageFor(model => model.email)
                </div>
-                   <label for="password">Password</label>
-
-                <div>            
-                   @Html.Password("Password")
-           
+                <div>       
+                  <label for="password">Password</label>
+               </div>
+               <div>
+                 <input type="password" name="pass" required />
+                   @ViewBag.pass
+                   
+                  
                </div>
                <input type="submit" value="Register" />
         </fieldset>

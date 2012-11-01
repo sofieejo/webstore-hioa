@@ -66,13 +66,20 @@ header h1 {
 
 }
 
+#user-box {
+    width:auto;
+    float:right;
+}
+
 #welcome-message{
-    display: inline;
-    float: right;
     font-family: 'Times New Roman';
     font-style: italic;
     color: #808080;
     font-size: 1.5em;
+}
+
+.option-link {
+    font-size:larger;
 }
 
 #logout {
@@ -101,3 +108,5 @@ header h1 {
     float: right;
     border: 1px solid #4cff00;
 }
+
+

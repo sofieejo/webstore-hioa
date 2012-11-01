@@ -16,8 +16,13 @@ namespace Webstore
 
         public byte[] generateHash(string password)
         {
-            var algorithm = SHA256.Create();
-            return algorithm.ComputeHash(Encoding.ASCII.GetBytes(password));
+            if (password != null)
+            {
+                var algorithm = SHA256.Create();
+                return algorithm.ComputeHash(Encoding.ASCII.GetBytes(password));
+            }
+            else
+                return null;
         }
 
         public string insertCustomer(Webstore.Models.customer customer)
@@ -47,7 +52,7 @@ namespace Webstore
             byte[] hashedPassword = generateHash(password);
 
             var user = from c in db.customers
-                           where email == c.email
+                           where email == c.email && hashedPassword == c.password
                            select c;
 
 
@@ -95,6 +100,7 @@ namespace Webstore
             foreach (var item in getCustomerOrders(customerId))
             {
                     
+
                 foreach (var property in item)
                 {
                     Dictionary<string, string> details = new Dictionary<string, string>();
@@ -112,6 +118,7 @@ namespace Webstore
                     details.Add("date", Convert.ToString(date.First()));
 
                     orderDetailList.Add(property.Id, details);
+
                 }
                
             }
