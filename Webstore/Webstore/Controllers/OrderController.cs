@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Webstore.Models;
 
 namespace Webstore.Controllers
@@ -11,14 +9,9 @@ namespace Webstore.Controllers
     public class OrderController : Controller
     {
         [HttpPost]
-        public JsonResult newOrder(ShoppingCart cart)
+        public JsonResult newOrder(List<string> values)
         {
-            JsonResult result = new JsonResult();
-
-            result.Data += cart;
-                       
-            result.Data += "hei";
-            return result;
+            return Json(new { Result = values[0]});
         }
 
         public ActionResult newOrder()

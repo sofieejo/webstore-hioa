@@ -2,6 +2,19 @@
 
 (function (W, $) {
 
+    function ReturnCart() {
+        var cart = new Array();
+        this.getCart = function () {
+            return cart;
+        }
+
+        this.addIdandAmount = function (id, amount) {
+            var obj = { Id: id, Amount: amount };
+            this.getCart().push(obj);
+        }
+
+    }
+
     function stringToObject(string) {
         string = string.slice(0, -1);
         var map = string.split(",");
@@ -100,19 +113,18 @@
     }
 
     function buyProducts() {
-        var cart = this.shoppingCart;
-        var amountArray = new Array();
-        cart.forEach(function (e) {
-            amountArray.push([e.Id, 777]);
-        });
+  
+        var temp = ["hei", "kat"];
+        var postData = { Values: temp };
 
-        console.log(amountArray);
         $.ajax({
-            data: amountArray,
+            data: postData,
             type: 'POST',
+            dataType: 'json',
+            traditional: true,
             url: '/order/neworder',
             success: function (data) {
-                console.log(data);
+                console.log("The data:" , data.Result);
                 //location.href = '/order/neworder';
             }
         });

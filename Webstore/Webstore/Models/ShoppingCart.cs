@@ -7,6 +7,6 @@ namespace Webstore.Models
 {
     public class ShoppingCart
     {
-       public Dictionary<string,string> cart { get; set; }
+       public string[] cart { get; set; }
     }
 }
