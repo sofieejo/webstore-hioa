@@ -47,32 +47,51 @@ namespace Webstore
             }
         }
 
-        public Dictionary<int, List<string>> LogIn(string email, string password)
+        public customer LogIn(string email, string password)
         {
             byte[] hashedPassword = generateHash(password);
 
-            var user = from c in db.customers
+            var user = (from c in db.customers
                            where email == c.email && hashedPassword == c.password
-                           select c;
+                           select c).Single();
 
 
-            if (user.Count() > 0)
+            if (user != null)
             {
-                Dictionary<int, List<string>> customer = new Dictionary<int, List<string>>();
-                List<string> properties = new List<string>();
-
-                properties.Add(user.First().firstname);
-                properties.Add(user.First().lastname);
-                properties.Add(user.First().email);
-                customer.Add(user.First().Id, properties);
-
-                return customer;
+                return user;
             }
             else
             {
                 return null;
             }
         
+        }
+
+        public string editCustomer(int id, string firstname, string lastname, string address, string zipcode, string phonenumber, string email)
+        {
+            var cust = db.customers.Single(c => c.Id == id);
+            cust.firstname = firstname;
+            cust.lastname = lastname;
+            cust.address = address;
+            cust.zipcode = zipcode;
+            cust.telephone = phonenumber;
+            cust.email = email;
+
+            try
+            {
+                db.SubmitChanges();
+                return "Info updated";
+            }
+            catch
+            {
+                return "Info was not updated";
+            }
+        }
+
+        public customer getCustomer(int id)
+        {
+            var m = db.customers.Where(c => id == c.Id).Single();
+            return m;
         }
 
         private List<EntitySet<orderdetail>> getCustomerOrders(int customerId)

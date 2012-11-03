@@ -1,0 +1,77 @@
+﻿@model Webstore.Models.customer
+
+@{
+    ViewBag.Title = "Edit customer information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your information</h2>
+
+@using (Html.BeginForm("edit","customer", FormMethod.Post)) {
+    @Html.ValidationSummary(true)
+           
+    <fieldset>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.firstname, "First name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.firstname)
+            @Html.ValidationMessageFor(model => model.firstname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lastname, "Last name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lastname)
+            @Html.ValidationMessageFor(model => model.lastname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.address, "Address")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.address)
+            @Html.ValidationMessageFor(model => model.address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.zipcode, "Zip code")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.zipcode)
+            @Html.ValidationMessageFor(model => model.zipcode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email, "E-mail")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telephone, "Phone number")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telephone)
+            @Html.ValidationMessageFor(model => model.telephone)
+        </div>
+           
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+
+}
+
+@ViewBag.confirmation
+@ViewBag.backToStoreLink
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -57,11 +57,10 @@ namespace Webstore
 
             Session["loggedIn"] = db.LogIn(customer.email, password);
 
-            Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
+            customer userInformation = (customer)Session["loggedIn"];
             if ( userInformation != null)
             {
-                ViewBag.logInMessage = "You are now logged in " + userInformation.First().Value + ".";
-                System.Threading.Thread.Sleep(2000);
+                ViewBag.logInMessage = "You are now logged in " + userInformation.firstname + ".";
                 return RedirectToAction("showallproducts", "product",null);
 
             }
@@ -75,14 +74,14 @@ namespace Webstore
 
         public ActionResult orders()
         {
-            Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
+            customer userInformation = (customer)Session["loggedIn"];
             ViewBag.text = "";
             
             if (userInformation != null)
             {
                 try
                 {
-                    Dictionary<int, Dictionary<string,string>> orders = db.getCustomerOrderDetails(userInformation.First().Key);
+                    Dictionary<int, Dictionary<string,string>> orders = db.getCustomerOrderDetails(userInformation.Id);
 
                     foreach (var item in orders)
                     {
@@ -106,6 +105,42 @@ namespace Webstore
             return View();
 
 
+        }
+
+        public ActionResult edit()
+        {
+            customer userInformation = (customer)Session["loggedIn"]; 
+            ViewBag.username = userInformation.firstname;
+            ViewBag.logLink = "<a href='../customer/logOut'>(log out?)</a>";
+            ViewBag.optionLink = "<a href='../customer/orders' class='option-link'>Show my orders</a>";
+            ViewBag.editInfoLink = "<a href='../customer/edit/" + userInformation.Id + "' class='option-link'>Edit my information</a>";
+            
+
+            var model = new customer
+            {
+                firstname = userInformation.firstname,
+                lastname = userInformation.lastname,
+                address = userInformation.address,
+                telephone = userInformation.telephone,
+                zipcode = userInformation.zipcode,
+                email = userInformation.email
+            };
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult edit(Models.customer customer, FormCollection form)
+        {
+            customer userInformation = (customer)Session["loggedIn"];
+            ViewBag.username = userInformation.firstname;
+            ViewBag.logLink = "<a href='../customer/logOut'>(log out?)</a>";
+            ViewBag.optionLink = "<a href='../customer/orders' class='option-link'>Show my orders</a>";
+            ViewBag.editInfoLink = "<a href='../customer/edit/" + userInformation.Id + "' class='option-link'>Edit my information</a>";
+            ViewBag.backToStoreLink = "<a href='../product/showallproducts'>Back to the store</a>";
+
+            ViewBag.confirmation = db.editCustomer(userInformation.Id, customer.firstname, customer.lastname, customer.address, customer.zipcode, customer.telephone, customer.email);
+            return View();
         }
 
         private bool passwordOK(string psw)
