@@ -225,6 +225,7 @@
     <Content Include="Views\Customer\orders.cshtml" />
     <Content Include="Views\Product\home.cshtml" />
     <Content Include="Views\Shared\_loginlayout.cshtml" />
+    <Content Include="Views\Customer\edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
