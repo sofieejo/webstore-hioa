@@ -33,17 +33,6 @@ namespace Webstore.Controllers
             return PartialView();
         }
 
-        public JsonResult categoryList()
-        {
-            JsonResult categories = new JsonResult();
-            categories.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            foreach (var c in db.getAllCategories())
-            {
-                categories.Data += c.Key + ": " + c.Value + ",";
-            }
-            return categories;
-        }
-
         public JsonResult get(int id)
         {
             JsonResult product = new JsonResult();

@@ -40,7 +40,8 @@
     @RenderSection("scripts", required: false)
 
     <script>
-        WEBSTORE.script.init();
+        var store = WEBSTORE.script.create();
+        store.init();
     </script>
 </body>
 </html>
