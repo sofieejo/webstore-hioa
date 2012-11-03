@@ -3,8 +3,29 @@
 
 
 <h1>Orders</h1>
-@ViewBag.orderList
 
-<h2>@ViewBag.text</h2>
+@foreach(var o in ViewBag.orderList) {
+    <h3>Order number: @o.Key.Id</h3>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+        </tr>
+       
+        @foreach (var d in o.Value)
+        {
+            <tr>
+                <td>@o.Key.date</td>
+                <td>@d.product.name</td>
+                <td>@d.quantity</td>
+                <td>@(@d.quantity * @d.product.price)</td>
+            </tr>       
+        }
+    </table>
+    
+}
 
-<h1>@ViewBag.errorMessage</h1>
+<h2>@ViewBag.errorMessage</h2>
+@Html.ActionLink("Back to the store", "../product/showallproducts")

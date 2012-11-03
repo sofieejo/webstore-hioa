@@ -79,23 +79,7 @@ namespace Webstore
             
             if (userInformation != null)
             {
-                try
-                {
-                    Dictionary<int, Dictionary<string,string>> orders = db.getCustomerOrderDetails(userInformation.Id);
-
-                    foreach (var item in orders)
-                    {
-                        ViewBag.text += "orderdetailId >> " + item.Key;
-                        foreach (var detail in item.Value)
-                        {
-                            ViewBag.text += detail.Key + " --- " + detail.Value;
-                        }
-                    }
-                }
-                catch (ObjectDisposedException o)
-                {
-                    Console.Write(o.Message);
-                }
+                ViewBag.orderList = db.getCustomerOrderDetails(userInformation.Id);
             }
             else
             {

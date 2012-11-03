@@ -94,52 +94,23 @@ namespace Webstore
             return m;
         }
 
-        private List<EntitySet<orderdetail>> getCustomerOrders(int customerId)
+        private List<order> getCustomerOrders(int customerId)
         {
-            List<EntitySet<orderdetail>> orders = new List<EntitySet<orderdetail>>();
-
-            var orderList = from o in db.orders
+            var orderList = (from o in db.orders
                                 where customerId == o.customerID
-                                select o.orderdetails;
+                                select o).ToList();
 
-            foreach (var item in orderList)
-            {
-                orders.Add(item);
-            }
-
-            return orders;
+            return orderList;
         }
 
-        public Dictionary<int, Dictionary<string, string>> getCustomerOrderDetails(int customerId)
+        public Dictionary<order, List<orderdetail>> getCustomerOrderDetails(int customerId)
         {
            
-            Dictionary<int, Dictionary<string, string>> orderDetailList = new Dictionary<int, Dictionary<string, string>>();
+            Dictionary<order, List<orderdetail>> orderDetailList = new Dictionary<order, List<orderdetail>>();
 
-            decimal priceTotal;
             foreach (var item in getCustomerOrders(customerId))
             {
-                    
-
-                foreach (var property in item)
-                {
-                    Dictionary<string, string> details = new Dictionary<string, string>();
-                    var product = from p in db.products
-                                        where property.productID == p.Id
-                                        select new {p.name, p.price};
-
-                    var date = from o in db.orders
-                                where o.Id == property.orderID
-                                select new { o.date };
-
-                    priceTotal = product.First().price * property.quantity;
-                    details.Add("productName", product.First().name);
-                    details.Add("priceTotal", Convert.ToString(priceTotal));
-                    details.Add("date", Convert.ToString(date.First()));
-
-                    orderDetailList.Add(property.Id, details);
-
-                }
-               
+                    orderDetailList.Add(item, item.orderdetails.ToList()); 
             }
             return orderDetailList;
         }
