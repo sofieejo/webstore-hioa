@@ -22,7 +22,6 @@ CREATE TABLE [dbo].[product] (
     [name]        VARCHAR (50)  NOT NULL,
     [price]       DECIMAL (18)  NOT NULL,
     [description] VARCHAR (MAX) DEFAULT ('no description') NOT NULL,
-    [categoryID]  INT           NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
 );
 

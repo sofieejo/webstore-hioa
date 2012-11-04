@@ -12,7 +12,10 @@ namespace Webstore
 {
     public class DB
     {
+        //To be able to insert orders of non-registered users, the very first 
+        //registered user with id 1 should be the anonymous user.
         public static readonly int anonymousId = 1;
+
         private DataClassesDataContext db = new DataClassesDataContext();
 
         public byte[] generateHash(string password)
@@ -54,7 +57,7 @@ namespace Webstore
 
             var user = (from c in db.customers
                            where email == c.email && hashedPassword == c.password
-                           select c).Single();
+                           select c).SingleOrDefault();
 
 
             if (user != null)
@@ -159,20 +162,6 @@ namespace Webstore
         public List<Models.product> getAllProducts()
         {
             return db.products.ToList();
-        }
-
-        public Dictionary<int, string> getAllCategories()
-        {
-            Dictionary<int, string> categories = new Dictionary<int, string>();
-
-            var cat = from c in db.categories
-                      select c;
-
-            foreach (var c in cat)
-            {
-                categories.Add(c.Id, c.name);
-            }
-            return categories;
         }
 
         public product getProduct(int id)
