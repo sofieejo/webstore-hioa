@@ -47,26 +47,18 @@ namespace Webstore
             }
         }
 
-        public Dictionary<int, List<string>> LogIn(string email, string password)
+        public customer LogIn(string email, string password)
         {
             byte[] hashedPassword = generateHash(password);
 
-            var user = from c in db.customers
+            var user = (from c in db.customers
                            where email == c.email && hashedPassword == c.password
-                           select c;
+                           select c).Single();
 
 
-            if (user.Count() > 0)
+            if (user != null)
             {
-                Dictionary<int, List<string>> customer = new Dictionary<int, List<string>>();
-                List<string> properties = new List<string>();
-
-                properties.Add(user.First().firstname);
-                properties.Add(user.First().lastname);
-                properties.Add(user.First().email);
-                customer.Add(user.First().Id, properties);
-
-                return customer;
+                return user;
             }
             else
             {
@@ -75,52 +67,50 @@ namespace Webstore
         
         }
 
-        private List<EntitySet<orderdetail>> getCustomerOrders(int customerId)
+        public string editCustomer(int id, string firstname, string lastname, string address, string zipcode, string phonenumber, string email)
         {
-            List<EntitySet<orderdetail>> orders = new List<EntitySet<orderdetail>>();
+            var cust = db.customers.Single(c => c.Id == id);
+            cust.firstname = firstname;
+            cust.lastname = lastname;
+            cust.address = address;
+            cust.zipcode = zipcode;
+            cust.telephone = phonenumber;
+            cust.email = email;
 
-            var orderList = from o in db.orders
-                                where customerId == o.customerID
-                                select o.orderdetails;
-
-            foreach (var item in orderList)
+            try
             {
-                orders.Add(item);
+                db.SubmitChanges();
+                return "Info updated";
             }
-
-            return orders;
+            catch
+            {
+                return "Info was not updated";
+            }
         }
 
-        public Dictionary<int, Dictionary<string, string>> getCustomerOrderDetails(int customerId)
+        public customer getCustomer(int id)
+        {
+            var m = db.customers.Where(c => id == c.Id).Single();
+            return m;
+        }
+
+        private List<order> getCustomerOrders(int customerId)
+        {
+            var orderList = (from o in db.orders
+                                where customerId == o.customerID
+                                select o).ToList();
+
+            return orderList;
+        }
+
+        public Dictionary<order, List<orderdetail>> getCustomerOrderDetails(int customerId)
         {
            
-            Dictionary<int, Dictionary<string, string>> orderDetailList = new Dictionary<int, Dictionary<string, string>>();
+            Dictionary<order, List<orderdetail>> orderDetailList = new Dictionary<order, List<orderdetail>>();
 
-            decimal priceTotal;
             foreach (var item in getCustomerOrders(customerId))
             {
-                    
-
-                foreach (var property in item)
-                {
-                    Dictionary<string, string> details = new Dictionary<string, string>();
-                    var product = from p in db.products
-                                        where property.productID == p.Id
-                                        select new {p.name, p.price};
-
-                    var date = from o in db.orders
-                                where o.Id == property.orderID
-                                select new { o.date };
-
-                    priceTotal = product.First().price * property.quantity;
-                    details.Add("productName", product.First().name);
-                    details.Add("priceTotal", Convert.ToString(priceTotal));
-                    details.Add("date", Convert.ToString(date.First()));
-
-                    orderDetailList.Add(property.Id, details);
-
-                }
-               
+                    orderDetailList.Add(item, item.orderdetails.ToList()); 
             }
             return orderDetailList;
         }

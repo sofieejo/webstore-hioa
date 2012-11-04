@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Text;
+using Webstore.Models;
 
 namespace Webstore.Controllers
 {
@@ -20,10 +21,11 @@ namespace Webstore.Controllers
 
             if (Session["loggedIn"] != null)
             {
-                Dictionary<int, List<string>> userInformation = (Dictionary<int, List<string>>)Session["loggedIn"];
-                ViewBag.username = userInformation.First().Value.First();
+                customer userInformation = (customer)Session["loggedIn"];
+                ViewBag.username = userInformation.firstname;
                 ViewBag.logLink = "<a href='../customer/logOut'>(log out?)</a>";
                 ViewBag.optionLink = "<a href='../customer/orders' class='option-link'>Show my orders</a>";
+                ViewBag.editInfoLink = "<a href='../customer/edit/" + "' class='option-link'>Edit my information</a>";
             }
             else
             {
