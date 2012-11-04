@@ -1,7 +1,7 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_plain.cshtml";
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -30,8 +30,9 @@
             
         }
     </table>
-    
+    <br /><br />
     @Html.ActionLink("Buy!", "../order/confirmorder", null, new {@id = "confirm-order"})<br />
+    <br />
     @Html.ActionLink("Back to the store", "../product/showallproducts")
 </body>
 </html>

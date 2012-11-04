@@ -39,8 +39,7 @@ namespace Webstore.Controllers
         public ActionResult confirmOrder()
         {
             List<string> values = (List<string>)Session["orderInfo"];
-            ViewBag.valuesCount = values.Count();
-
+            
             ViewBag.confirmOrderMessage = "You order is paid for!";
 
             //Anonymous customers have a default id to be able to register their orders in the database

@@ -1,0 +1,24 @@
+﻿body {
+    width: 80%;
+    margin: 0 auto;
+}
+
+td {
+    padding-right: 3em;
+    border-bottom: 1px dotted #808080;
+}
+
+table th {
+    text-align: left;
+}
+
+#confirm-order-message {
+    font-size: 2em;
+    color: blue;
+}
+
+#confirm-order {
+    text-decoration: none;
+    color: blue;
+    font-size: 1.5em;
+}

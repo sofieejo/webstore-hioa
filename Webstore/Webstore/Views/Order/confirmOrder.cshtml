@@ -1,12 +1,13 @@
 ﻿@{
     ViewBag.Title = "Confirmation";
+    Layout = "~/Views/Shared/_plain.cshtml";
 }
 
 <h2>Order confirmation</h2>
 
 
 @Html.Raw(ViewBag.optionLink) <br />
-The Order will be sent to: <br />
+<h4>The Order will be sent to:</h4>
 @if (ViewBag.customer != null) {
     <p>@ViewBag.customer.firstname @ViewBag.customer.lastname</p>
     <p>@ViewBag.customer.address</p>
@@ -17,6 +18,6 @@ The Order will be sent to: <br />
     
 
 }
-Confirmation @ViewBag.confirmOrderMessage <br />
+<span id="confirm-order-message">@ViewBag.confirmOrderMessage</span><br /> 
 Log out @Html.Raw(ViewBag.logLink) <br />
 Back to store @Html.Raw(ViewBag.backToStoreLink) <br />
