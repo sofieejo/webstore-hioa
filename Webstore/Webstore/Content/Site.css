@@ -102,11 +102,21 @@ header h1 {
     }
 
 #shopping-cart {
+    padding: 5px;
     display: inline;
-    width: 15em;
+    width: 40% auto;
     min-height: 10em;
     float: right;
     border: 1px solid #4cff00;
+    font-size: 0.8em;
+    text-align: left;
 }
 
+    #shopping-cart img {
+        width: 20px;
+    }
 
+.product-name {
+    font-weight: bold;
+    padding-right: 10%;
+}

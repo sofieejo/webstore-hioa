@@ -30,9 +30,6 @@ namespace Webstore.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void Insertcategory(category instance);
-    partial void Updatecategory(category instance);
-    partial void Deletecategory(category instance);
     partial void Insertcity(city instance);
     partial void Updatecity(city instance);
     partial void Deletecity(city instance);
@@ -42,12 +39,12 @@ namespace Webstore.Models
     partial void Insertorderdetail(orderdetail instance);
     partial void Updateorderdetail(orderdetail instance);
     partial void Deleteorderdetail(orderdetail instance);
-    partial void Insertproduct(product instance);
-    partial void Updateproduct(product instance);
-    partial void Deleteproduct(product instance);
     partial void Insertcustomer(customer instance);
     partial void Updatecustomer(customer instance);
     partial void Deletecustomer(customer instance);
+    partial void Insertproduct(product instance);
+    partial void Updateproduct(product instance);
+    partial void Deleteproduct(product instance);
     #endregion
 		
 		public DataClassesDataContext() : 
@@ -80,14 +77,6 @@ namespace Webstore.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<category> categories
-		{
-			get
-			{
-				return this.GetTable<category>();
-			}
-		}
-		
 		public System.Data.Linq.Table<city> cities
 		{
 			get
@@ -112,14 +101,6 @@ namespace Webstore.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<product> products
-		{
-			get
-			{
-				return this.GetTable<product>();
-			}
-		}
-		
 		public System.Data.Linq.Table<customer> customers
 		{
 			get
@@ -127,119 +108,13 @@ namespace Webstore.Models
 				return this.GetTable<customer>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.category")]
-	public partial class category : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _name;
-		
-		private EntitySet<product> _products;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    #endregion
-		
-		public category()
-		{
-			this._products = new EntitySet<product>(new Action<product>(this.attach_products), new Action<product>(this.detach_products));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		public System.Data.Linq.Table<product> products
 		{
 			get
 			{
-				return this._Id;
+				return this.GetTable<product>();
 			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="category_product", Storage="_products", ThisKey="Id", OtherKey="categoryID")]
-		public EntitySet<product> products
-		{
-			get
-			{
-				return this._products;
-			}
-			set
-			{
-				this._products.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_products(product entity)
-		{
-			this.SendPropertyChanging();
-			entity.category = this;
-		}
-		
-		private void detach_products(product entity)
-		{
-			this.SendPropertyChanging();
-			entity.category = null;
 		}
 	}
 	
@@ -752,233 +627,6 @@ namespace Webstore.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.product")]
-	public partial class product : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _name;
-		
-		private decimal _price;
-		
-		private string _description;
-		
-		private int _categoryID;
-		
-		private EntitySet<orderdetail> _orderdetails;
-		
-		private EntityRef<category> _category;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnpriceChanging(decimal value);
-    partial void OnpriceChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OncategoryIDChanging(int value);
-    partial void OncategoryIDChanged();
-    #endregion
-		
-		public product()
-		{
-			this._orderdetails = new EntitySet<orderdetail>(new Action<orderdetail>(this.attach_orderdetails), new Action<orderdetail>(this.detach_orderdetails));
-			this._category = default(EntityRef<category>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(18,0) NOT NULL")]
-		public decimal price
-		{
-			get
-			{
-				return this._price;
-			}
-			set
-			{
-				if ((this._price != value))
-				{
-					this.OnpriceChanging(value);
-					this.SendPropertyChanging();
-					this._price = value;
-					this.SendPropertyChanged("price");
-					this.OnpriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_categoryID", DbType="Int NOT NULL")]
-		public int categoryID
-		{
-			get
-			{
-				return this._categoryID;
-			}
-			set
-			{
-				if ((this._categoryID != value))
-				{
-					if (this._category.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OncategoryIDChanging(value);
-					this.SendPropertyChanging();
-					this._categoryID = value;
-					this.SendPropertyChanged("categoryID");
-					this.OncategoryIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="product_orderdetail", Storage="_orderdetails", ThisKey="Id", OtherKey="productID")]
-		public EntitySet<orderdetail> orderdetails
-		{
-			get
-			{
-				return this._orderdetails;
-			}
-			set
-			{
-				this._orderdetails.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="category_product", Storage="_category", ThisKey="categoryID", OtherKey="Id", IsForeignKey=true)]
-		public category category
-		{
-			get
-			{
-				return this._category.Entity;
-			}
-			set
-			{
-				category previousValue = this._category.Entity;
-				if (((previousValue != value) 
-							|| (this._category.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._category.Entity = null;
-						previousValue.products.Remove(this);
-					}
-					this._category.Entity = value;
-					if ((value != null))
-					{
-						value.products.Add(this);
-						this._categoryID = value.Id;
-					}
-					else
-					{
-						this._categoryID = default(int);
-					}
-					this.SendPropertyChanged("category");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_orderdetails(orderdetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.product = this;
-		}
-		
-		private void detach_orderdetails(orderdetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.product = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.customer")]
 	public partial class customer : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1275,6 +923,168 @@ namespace Webstore.Models
 		{
 			this.SendPropertyChanging();
 			entity.customer = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.product")]
+	public partial class product : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _name;
+		
+		private decimal _price;
+		
+		private string _description;
+		
+		private EntitySet<orderdetail> _orderdetails;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnpriceChanging(decimal value);
+    partial void OnpriceChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    #endregion
+		
+		public product()
+		{
+			this._orderdetails = new EntitySet<orderdetail>(new Action<orderdetail>(this.attach_orderdetails), new Action<orderdetail>(this.detach_orderdetails));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Decimal(18,0) NOT NULL")]
+		public decimal price
+		{
+			get
+			{
+				return this._price;
+			}
+			set
+			{
+				if ((this._price != value))
+				{
+					this.OnpriceChanging(value);
+					this.SendPropertyChanging();
+					this._price = value;
+					this.SendPropertyChanged("price");
+					this.OnpriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="product_orderdetail", Storage="_orderdetails", ThisKey="Id", OtherKey="productID")]
+		public EntitySet<orderdetail> orderdetails
+		{
+			get
+			{
+				return this._orderdetails;
+			}
+			set
+			{
+				this._orderdetails.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_orderdetails(orderdetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.product = this;
+		}
+		
+		private void detach_orderdetails(orderdetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.product = null;
 		}
 	}
 }
