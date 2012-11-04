@@ -1,0 +1,71 @@
+﻿@model Webstore.Models.customer
+
+@{
+    ViewBag.Title = "Order for non-registered customers";
+}
+
+<h2>Enter shipping information</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Shipping Info</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.firstname, "First name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.firstname)
+            @Html.ValidationMessageFor(model => model.firstname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lastname, "Last name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lastname)
+            @Html.ValidationMessageFor(model => model.lastname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.address, "Address")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.address)
+            @Html.ValidationMessageFor(model => model.address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.zipcode, "Zip code")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.zipcode)
+            @Html.ValidationMessageFor(model => model.zipcode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email, "E-mail")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telephone, "Telephone")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telephone)
+            @Html.ValidationMessageFor(model => model.telephone)
+        </div>
+
+        <p>
+            <input type="submit" value="Ok" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
