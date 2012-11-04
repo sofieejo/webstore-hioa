@@ -12,6 +12,7 @@ namespace Webstore
 {
     public class DB
     {
+        public static readonly int anonymousId = 1;
         private DataClassesDataContext db = new DataClassesDataContext();
 
         public byte[] generateHash(string password)

@@ -42,9 +42,6 @@ namespace Webstore.Controllers
             
             ViewBag.confirmOrderMessage = "You order is paid for!";
 
-            //Anonymous customers have a default id to be able to register their orders in the database
-            int anonymousId = 7;
-
             order orderIn;
             if (Session["loggedIn"] != null)
             {
@@ -57,7 +54,7 @@ namespace Webstore.Controllers
             {
                 if (Session["anonymous"] != null)
                 {
-                    orderIn = db.insertOrder(anonymousId);
+                    orderIn = db.insertOrder(DB.anonymousId);
                     ViewBag.anonymousInfo = (customer)Session["anonymous"];
                     
                 }

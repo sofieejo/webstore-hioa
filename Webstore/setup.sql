@@ -10,17 +10,11 @@ CREATE TABLE [dbo].[customer] (
     [lastname]  VARCHAR (50)  NOT NULL,
     [address]   VARCHAR (100) NOT NULL,
     [zipcode]   VARCHAR (4)   NOT NULL,
-    [email]     VARCHAR (100) IDENTITY NOT NULL,
+    [email]     VARCHAR (100) NOT NULL,
     [telephone] VARCHAR (8)   NOT NULL,
     [password]  VARBINARY (256) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_customer_city] FOREIGN KEY ([zipcode]) REFERENCES [dbo].[city] ([zipcode])
-);
-
-CREATE TABLE [dbo].[category] (
-    [Id]   INT          IDENTITY (1, 1) NOT NULL,
-    [name] VARCHAR (50) NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 CREATE TABLE [dbo].[product] (
@@ -30,7 +24,6 @@ CREATE TABLE [dbo].[product] (
     [description] VARCHAR (MAX) DEFAULT ('no description') NOT NULL,
     [categoryID]  INT           NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_product_category] FOREIGN KEY ([categoryID]) REFERENCES [dbo].[category] ([Id])
 );
 
 CREATE TABLE [dbo].[order] (
