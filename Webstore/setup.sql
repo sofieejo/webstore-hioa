@@ -10,7 +10,7 @@ CREATE TABLE [dbo].[customer] (
     [lastname]  VARCHAR (50)  NOT NULL,
     [address]   VARCHAR (100) NOT NULL,
     [zipcode]   VARCHAR (4)   NOT NULL,
-    [email]     VARCHAR (100) NOT NULL,
+    [email]     VARCHAR (100) IDENTITY NOT NULL,
     [telephone] VARCHAR (8)   NOT NULL,
     [password]  VARBINARY (256) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
