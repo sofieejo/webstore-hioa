@@ -4,17 +4,13 @@
 
     function stringToObject(string) {
         string = string.slice(0, -1);
-        var map = string.split(",");
-        var object = new Object();
-        var tempArray = new Array();
-        map.forEach(function (e) {
-            var arr = e.split(":");
-            tempArray.push(arr[1]);
-        });
-
-        object.Id = tempArray[0].replace(/\s/g, '');
-        object.Name = tempArray[1].replace(/^\s/, '');
-        object.Price = tempArray[2].replace(/\s/g, '');
+        var map = string.split(":");
+        var object = {
+            Id: map[0],
+            Name: map[1],
+            Price: map[2],
+            Amount: 0
+        };
         return object;
     }
 
@@ -29,11 +25,11 @@
     }
 
     function getProduct(id, self) {
-        console.log("getting product.", id);
         $.ajax({
             url: "/product/get/" + id,
             success: function (product) {
                 var obj = stringToObject(product);
+                obj.Amount += 1;
                 self.shoppingCart.push(obj);
                 renderCart(self);
             }
@@ -43,7 +39,6 @@
         var self = this;
         var productId = $(ev.currentTarget).data("product-id");
         
-        console.log(isProductInCart(productId, self));
         if (!isProductInCart(productId, self)) {
             getProduct(productId, self);
         } else {
@@ -69,7 +64,7 @@
             $('#shopping-cart table').append(
                     '<tr>' +
                         '<td><span class="product-name" data-product-id="' + e.Id + '">' + e.Name + '</span></td>' +
-                        '<td><span id="'+ e.Id + '-amount">1</span></td>' +
+                        '<td><span id="'+ e.Id + '-amount">' + e.Amount + '</span></td>' +
                         '<td><img class="add-icon" data-product-id="' + e.Id + '" src="../Content/add.png" /></td>' +
                         '<td><img class="minus-icon" data-product-id="' + e.Id + '" src="../Content/minus.png" /></td>' +
                         '<td><img class="delete-icon" data-product-id="' + e.Id + '" src="../Content/delete.png"/></td>' +
@@ -92,12 +87,18 @@
     function updateAmount(ev) {
         var productId = $(ev.currentTarget).data('product-id');
         var currentAmount = $('#' + productId + '-amount').html();
-
         if ($(ev.currentTarget).hasClass('add-icon')) {
-            currentAmount = parseInt(currentAmount) + 1;
+            currentAmount = +currentAmount + 1;
+            var result = $.grep(this.shoppingCart, function (e) { ;return e.Id == productId; });
+            result[0].Amount += 1;
+            console.log(result);
+            
         } else {
             if (currentAmount > 0) {
-                currentAmount = parseInt(currentAmount) - 1;
+                currentAmount = +currentAmount - 1;
+                var result = $.grep(this.shoppingCart, function (e) {; return e.Id == productId; });
+                result[0].Amount -= 1;
+                console.log(result);
             }
         }
 
@@ -117,7 +118,9 @@
         });
 
         renderCart(this);
-        $('#buy').hide();
+        if (cart.length === 0) {
+            $('#buy').hide();
+        }
     }
 
     function buyProducts() {
@@ -128,6 +131,7 @@
         });
 
         var postData = { Values: temp };
+        console.log("Array", postData);
 
         $.ajax({
             data: postData,
@@ -136,8 +140,8 @@
             traditional: true,
             url: '/order/neworder',
             success: function (data) {
-                console.log("The data:" , data.Result);
-                //location.href = '/order/neworder';
+                console.log("data", data);
+                window.location = "/order/showorder";
             }
         });
     }

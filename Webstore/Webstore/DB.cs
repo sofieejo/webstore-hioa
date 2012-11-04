@@ -144,16 +144,9 @@ namespace Webstore
             return categories;
         }
 
-        public Dictionary<string, string> getProduct(int id)
+        public product getProduct(int id)
         {
-            Dictionary<string, string> productmap = new Dictionary<string,string>();
-            var product = db.products.Where(p => id == p.Id);
-            productmap.Add("Id", Convert.ToString(product.First().Id));
-            productmap.Add("Name", product.First().name);
-            productmap.Add("Price", Convert.ToString(product.First().price));
-
-            return productmap;
-
+           return db.products.Where(p => id == p.Id).Single();
         }
     }
 }

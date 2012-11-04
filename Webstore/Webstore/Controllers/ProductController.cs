@@ -38,9 +38,9 @@ namespace Webstore.Controllers
             JsonResult product = new JsonResult();
             product.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
-            foreach(var p in db.getProduct(id)){
-                product.Data += p.Key + ": " + p.Value + ",";
-            }
+            var pr = db.getProduct(id);
+            product.Data += pr.Id + ":" + pr.name + ":" + pr.price + ":";
+                         
             return product;
         }
       
