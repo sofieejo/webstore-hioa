@@ -17,20 +17,12 @@ CREATE TABLE [dbo].[customer] (
     CONSTRAINT [FK_customer_city] FOREIGN KEY ([zipcode]) REFERENCES [dbo].[city] ([zipcode])
 );
 
-CREATE TABLE [dbo].[category] (
-    [Id]   INT          IDENTITY (1, 1) NOT NULL,
-    [name] VARCHAR (50) NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
 CREATE TABLE [dbo].[product] (
     [Id]          INT           IDENTITY (1, 1) NOT NULL,
     [name]        VARCHAR (50)  NOT NULL,
     [price]       DECIMAL (18)  NOT NULL,
     [description] VARCHAR (MAX) DEFAULT ('no description') NOT NULL,
-    [categoryID]  INT           NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_product_category] FOREIGN KEY ([categoryID]) REFERENCES [dbo].[category] ([Id])
 );
 
 CREATE TABLE [dbo].[order] (

@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Global.asax.cs">
@@ -145,6 +146,7 @@
     <Content Include="App_Data\Webstore_log.ldf">
       <DependentUpon>Webstore.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\plain.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -226,6 +228,11 @@
     <Content Include="Views\Product\home.cshtml" />
     <Content Include="Views\Shared\_loginlayout.cshtml" />
     <Content Include="Views\Customer\edit.cshtml" />
+    <Content Include="Views\Order\newOrder.cshtml" />
+    <Content Include="Views\Order\showOrder.cshtml" />
+    <Content Include="Views\Order\anonymousOrder.cshtml" />
+    <Content Include="Views\Order\confirmOrder.cshtml" />
+    <Content Include="Views\Shared\_plain.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

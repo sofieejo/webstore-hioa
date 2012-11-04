@@ -35,25 +35,14 @@ namespace Webstore.Controllers
             return PartialView();
         }
 
-        public JsonResult categoryList()
-        {
-            JsonResult categories = new JsonResult();
-            categories.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            foreach (var c in db.getAllCategories())
-            {
-                categories.Data += c.Key + ": " + c.Value + ",";
-            }
-            return categories;
-        }
-
         public JsonResult get(int id)
         {
             JsonResult product = new JsonResult();
             product.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
-            foreach(var p in db.getProduct(id)){
-                product.Data += p.Key + ": " + p.Value + ",";
-            }
+            var pr = db.getProduct(id);
+            product.Data += pr.Id + ":" + pr.name + ":" + pr.price + ":";
+                         
             return product;
         }
       

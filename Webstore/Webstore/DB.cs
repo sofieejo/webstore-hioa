@@ -12,6 +12,10 @@ namespace Webstore
 {
     public class DB
     {
+        //To be able to insert orders of non-registered users, the very first 
+        //registered user with id 1 should be the anonymous user.
+        public static readonly int anonymousId = 1;
+
         private DataClassesDataContext db = new DataClassesDataContext();
 
         public byte[] generateHash(string password)
@@ -53,7 +57,7 @@ namespace Webstore
 
             var user = (from c in db.customers
                            where email == c.email && hashedPassword == c.password
-                           select c).Single();
+                           select c).SingleOrDefault();
 
 
             if (user != null)
@@ -115,35 +119,54 @@ namespace Webstore
             return orderDetailList;
         }
 
+        public order insertOrder(int customerId)
+        {
+            order o = new order
+            {
+                date = DateTime.Now,
+                customerID = customerId
+            };
+            db.orders.InsertOnSubmit(o);
+            try
+            {
+                db.SubmitChanges();
+                return o;
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
+
+        public bool insertOrderDetails(int orderId, int pId, int amount)
+        {
+            orderdetail od = new orderdetail { 
+                orderID = orderId,
+                productID = pId,
+                quantity = amount
+            };
+
+            db.orderdetails.InsertOnSubmit(od);
+            try
+            {
+                db.SubmitChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+           
+        }
         public List<Models.product> getAllProducts()
         {
             return db.products.ToList();
         }
 
-        public Dictionary<int, string> getAllCategories()
+        public product getProduct(int id)
         {
-            Dictionary<int, string> categories = new Dictionary<int, string>();
-
-            var cat = from c in db.categories
-                      select c;
-
-            foreach (var c in cat)
-            {
-                categories.Add(c.Id, c.name);
-            }
-            return categories;
-        }
-
-        public Dictionary<string, string> getProduct(int id)
-        {
-            Dictionary<string, string> productmap = new Dictionary<string,string>();
-            var product = db.products.Where(p => id == p.Id);
-            productmap.Add("Id", Convert.ToString(product.First().Id));
-            productmap.Add("Name", product.First().name);
-            productmap.Add("Price", Convert.ToString(product.First().price));
-
-            return productmap;
-
+           return db.products.Where(p => id == p.Id).Single();
         }
     }
 }
