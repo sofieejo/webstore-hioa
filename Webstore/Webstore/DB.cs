@@ -125,6 +125,46 @@ namespace Webstore
             return orderDetailList;
         }
 
+        public order insertOrder(int customerId)
+        {
+            order o = new order
+            {
+                date = DateTime.Now,
+                customerID = customerId
+            };
+            db.orders.InsertOnSubmit(o);
+            try
+            {
+                db.SubmitChanges();
+                return o;
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
+
+        public bool insertOrderDetails(int orderId, int pId, int amount)
+        {
+            orderdetail od = new orderdetail { 
+                orderID = orderId,
+                productID = pId,
+                quantity = amount
+            };
+
+            db.orderdetails.InsertOnSubmit(od);
+            try
+            {
+                db.SubmitChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+           
+        }
         public List<Models.product> getAllProducts()
         {
             return db.products.ToList();
