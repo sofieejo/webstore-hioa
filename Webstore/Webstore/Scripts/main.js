@@ -2,19 +2,6 @@
 
 (function (W, $) {
 
-    function ReturnCart() {
-        var cart = new Array();
-        this.getCart = function () {
-            return cart;
-        }
-
-        this.addIdandAmount = function (id, amount) {
-            var obj = { Id: id, Amount: amount };
-            this.getCart().push(obj);
-        }
-
-    }
-
     function stringToObject(string) {
         string = string.slice(0, -1);
         var map = string.split(",");
@@ -31,11 +18,20 @@
         return object;
     }
 
-    function addProductToCart(ev) {
-        var self = this;
-        var productId = $(ev.currentTarget).data("product-id") ;
+    function isProductInCart(id, self) {
+        var bool = false;
+        self.shoppingCart.forEach(function (e) {
+            if (parseInt(e.Id) === parseInt(id)) {
+                bool = true;
+            }
+        });
+        return bool;
+    }
+
+    function getProduct(id, self) {
+        console.log("getting product.", id);
         $.ajax({
-            url: "/product/get/" + productId,
+            url: "/product/get/" + id,
             success: function (product) {
                 var obj = stringToObject(product);
                 self.shoppingCart.push(obj);
@@ -43,6 +39,18 @@
             }
         });
     }
+    function addProductToCart(ev) {
+        var self = this;
+        var productId = $(ev.currentTarget).data("product-id");
+        
+        console.log(isProductInCart(productId, self));
+        if (!isProductInCart(productId, self)) {
+            getProduct(productId, self);
+        } else {
+            alert("This item is already in your cart.");
+        }
+    }
+
 
     function renderCart(self) {
         var cart = self.shoppingCart;
@@ -75,8 +83,8 @@
     }
 
     function bindButtons(self){
-        $('.add-icon').on('click', updateAmount);
-        $('.minus-icon').on('click', updateAmount);
+        $('.add-icon').on('click', updateAmount.bind(self));
+        $('.minus-icon').on('click', updateAmount.bind(self));
         $('.delete-icon').on('click', deleteProduct.bind(self));
         $('#buy').on('click', buyProducts.bind(self));
     }
@@ -113,8 +121,12 @@
     }
 
     function buyProducts() {
-  
-        var temp = ["hei", "kat"];
+        var temp = new Array();
+        this.shoppingCart.forEach(function (e) {
+            var amount = $('#shopping-cart').find('#' + e.Id + '-amount').html();
+            temp.push(e.Id, amount);
+        });
+
         var postData = { Values: temp };
 
         $.ajax({

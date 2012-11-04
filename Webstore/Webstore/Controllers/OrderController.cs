@@ -11,7 +11,8 @@ namespace Webstore.Controllers
         [HttpPost]
         public JsonResult newOrder(List<string> values)
         {
-            return Json(new { Result = values[0]});
+            Session["cart"] = values;
+            return Json(new { Result = values});
         }
 
         public ActionResult newOrder()
