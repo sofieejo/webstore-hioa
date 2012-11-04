@@ -229,6 +229,8 @@
     <Content Include="Views\Customer\edit.cshtml" />
     <Content Include="Views\Order\newOrder.cshtml" />
     <Content Include="Views\Order\showOrder.cshtml" />
+    <Content Include="Views\Order\anonymousOrder.cshtml" />
+    <Content Include="Views\Order\confirmOrder.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

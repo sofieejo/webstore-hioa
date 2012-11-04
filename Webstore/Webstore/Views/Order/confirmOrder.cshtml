@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Confirmation";
+}
+
+<h2>Order confirmation</h2>
+
+
+@Html.Raw(ViewBag.optionLink) <br />
+The Order will be sent to: <br />
+@if (ViewBag.customer != null) {
+    <p>@ViewBag.customer.firstname @ViewBag.customer.lastname</p>
+    <p>@ViewBag.customer.address</p>
+    <p>@ViewBag.customer.zipcode @ViewBag.customer.city.name</p>
+} else {
+    <p>@ViewBag.anonymousInfo.firstname  @ViewBag.anonymousInfo.lastname</p>
+    <p>@ViewBag.anonymousInfo.address</p>
+    
+
+}
+Confirmation @ViewBag.confirmOrderMessage <br />
+Log out @Html.Raw(ViewBag.logLink) <br />
+Back to store @Html.Raw(ViewBag.backToStoreLink) <br />

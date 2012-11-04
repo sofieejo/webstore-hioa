@@ -24,9 +24,11 @@ namespace Webstore.Controllers
             Dictionary<product, int> products = new Dictionary<product, int>();
             List<string> values = (List<string>)Session["orderInfo"];
 
-            for (int i = 0; i < values.Count(); i += 2)
+            for (int i = 0; i <= values.Count() - 2; i += 2)
             {
-                products.Add(db.getProduct(Convert.ToInt32(values[i])), Convert.ToInt32(values[i + 1]));
+                int productId = Convert.ToInt32(values[i]);
+                int amount = Convert.ToInt32(values[i + 1]);
+                products.Add(db.getProduct(productId), amount);
             }
             ViewBag.products = products;
 
@@ -37,27 +39,64 @@ namespace Webstore.Controllers
         public ActionResult confirmOrder()
         {
             List<string> values = (List<string>)Session["orderInfo"];
-            var customer = (customer)Session["loggedIn"];
+            ViewBag.valuesCount = values.Count();
 
-            order orderIn = db.insertOrder(customer.Id);
             ViewBag.confirmOrderMessage = "You order is paid for!";
-            for (int i = 0; i < values.Count(); i += 2){
-                var orderdIn = db.insertOrderDetails(orderIn.Id, Convert.ToInt32(values[i]), Convert.ToInt32(values[i + 1]));
-                if (!orderdIn)
+
+            //Anonymous customers have a default id to be able to register their orders in the database
+            int anonymousId = 7;
+
+            order orderIn;
+            if (Session["loggedIn"] != null)
+            {
+                var customer = (customer)Session["loggedIn"];
+                orderIn = db.insertOrder(customer.Id);
+                ViewBag.optionLink = "<a href='../customer/orders' class='option-link'>Show my orders</a>";
+                ViewBag.customer = customer;
+            }
+            else
+            {
+                if (Session["anonymous"] != null)
+                {
+                    orderIn = db.insertOrder(anonymousId);
+                    ViewBag.anonymousInfo = (customer)Session["anonymous"];
+                    
+                }
+                else
+                {
+                    return RedirectToAction("anonymousOrder");  
+                }
+            }
+            
+            for (int i = 0; i <= values.Count() - 2; i += 2)
+            {
+                int productId = Convert.ToInt32(values[i]);
+                int amount = Convert.ToInt32(values[i + 1]);
+                
+                bool orderDetailIn = db.insertOrderDetails(orderIn.Id, productId, amount);
+                if (!orderDetailIn)
                 {
                     ViewBag.confirmOrderMessage = "Something went wrong, try placing your order later";
                 }
-            }
+               
+            }  
 
-            ViewBag.logLink = "<a href='../customer/logOut'>(log out?)</a>";
-
-            if(Session["loggedIn"] != null){
-                ViewBag.optionLink = "<a href='../customer/orders' class='option-link'>Show my orders</a>";
-            }
-
-            ViewBag.backToStoreLink = "<a href ='../product/showallproduts'>Back to the store</a>";
+            ViewBag.logLink = "<a href='../customer/logOut'>Log out</a>";
+            ViewBag.backToStoreLink = "<a href ='../product/showallproducts'>Back to the store</a>";
             return View();
 
+        }
+
+        public ActionResult anonymousOrder()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult anonymousOrder(customer customer)
+        {
+            Session["anonymous"] = customer;
+            return RedirectToAction("confirmOrder");
         }
 
     }
