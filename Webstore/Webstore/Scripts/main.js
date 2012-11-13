@@ -26,7 +26,7 @@
 
     function getProduct(id, self) {
         $.ajax({
-            url: "/product/get/" + id,
+            url: "../product/get/" + id,
             success: function (product) {
                 var obj = stringToObject(product);
                 obj.Amount += 1;
@@ -91,14 +91,11 @@
             currentAmount = +currentAmount + 1;
             var result = $.grep(this.shoppingCart, function (e) { ;return e.Id == productId; });
             result[0].Amount += 1;
-            console.log(result);
-            
         } else {
             if (currentAmount > 0) {
                 currentAmount = +currentAmount - 1;
                 var result = $.grep(this.shoppingCart, function (e) {; return e.Id == productId; });
                 result[0].Amount -= 1;
-                console.log(result);
             }
         }
 
@@ -131,17 +128,15 @@
         });
 
         var postData = { Values: temp };
-        console.log("Array", postData);
 
         $.ajax({
             data: postData,
             type: 'POST',
             dataType: 'json',
             traditional: true,
-            url: '/order/neworder',
+            url: '../order/neworder',
             success: function (data) {
-                console.log("data", data);
-                window.location = "/order/showorder";
+                window.location = "../order/showorder";
             }
         });
     }
